@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 import os
+import re
 
 
 def get_page_soup(url):
@@ -10,13 +11,31 @@ def get_page_soup(url):
     return soup
 
 
+# Télécharger les images associées aux produits
+def save_products_img(category, title, url):
+    img = requests.get(url)
+
+    file_extension = url[-3:]
+    path = f"./data/{category}/img"
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    file_name = " ".join(re.findall("[A-Za-z0-9]+", title))
+
+    with open(f"{path}/{file_name}.{file_extension}", "wb") as file:
+        file.write(img.content)
+
+
 # collecter les informations d'un produit
 def get_product_infos(url):
     soup = get_page_soup(url)
+
     category = soup.find_all("a")[3].string
     image_url = soup.find_all("img")[0].get("src").replace("../..", "http://books.toscrape.com")
+
     product_page_url = url
     title = soup.find("h1").string
+
     more_info = soup.find_all("td")
     universal_product_code = more_info[0].string
     price_excluding_tax = more_info[2].string
@@ -112,6 +131,9 @@ def write_csv_file(products_links, path):
     for product_link in products_links:
         product = get_product_infos(product_link)
         c.writerow(product)
+        [product_page_url, universal_product_code, title, *mid, category, review_rating, img_url] = product
+
+        save_products_img(category, title, img_url)
     csvfile.close()
 
 
@@ -123,7 +145,8 @@ def extract_all_books_by_category():
         products_links = get_all_products_category_links(link)
         path = f"./data/{name}"
         try:
-            os.makedirs(path)
+            if not os.path.exists(path):
+                os.makedirs(path)
             write_csv_file(products_links, path + f"/{name}.csv")
         except:
             raise Exception("Impossible de créer le dossier")
