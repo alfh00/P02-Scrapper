@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 import os
 import re
+from tqdm import tqdm
 
 
 def get_page_soup(url):
@@ -20,7 +21,7 @@ def save_products_img(category, title, url):
     if not os.path.exists(path):
         os.makedirs(path)
 
-    file_name = " ".join(re.findall("[A-Za-z0-9]+", title))
+    file_name = " ".join(re.findall("[A-Za-z0-9]+", title)).replace(" ", "_")
 
     with open(f"{path}/{file_name}.{file_extension}", "wb") as file:
         file.write(img.content)
@@ -140,7 +141,7 @@ def write_csv_file(products_links, path):
 # Télécharger tous produits
 def extract_all_books_by_category():
     categories_links = get_all_categories_links()
-    for category_link in categories_links:
+    for category_link in tqdm(categories_links, unit="catégorie"):
         [name, link] = category_link
         products_links = get_all_products_category_links(link)
         path = f"./data/{name}"
