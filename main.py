@@ -4,6 +4,10 @@ import csv
 import os
 import re
 from tqdm import tqdm
+import logging
+
+# Configs
+logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
 
 
 def get_page_soup(url):
@@ -12,7 +16,7 @@ def get_page_soup(url):
     return soup
 
 
-# Télécharger les images associées aux produits
+# Download book's cover (img)
 def save_products_img(category, title, url):
     img = requests.get(url)
 
@@ -27,7 +31,7 @@ def save_products_img(category, title, url):
         file.write(img.content)
 
 
-# collecter les informations d'un produit
+# Collect a single product infos
 def get_product_infos(url):
     soup = get_page_soup(url)
 
@@ -64,7 +68,7 @@ def get_product_infos(url):
     return product
 
 
-# collecter les liens de toutes les catégories
+# collect all links for a single caegory
 def get_all_categories_links():
     soup = get_page_soup("http://books.toscrape.com/")
     category_bloc = soup.find("ul", class_="nav-list").find("ul")
@@ -78,7 +82,7 @@ def get_all_categories_links():
     return links
 
 
-# collecter les liens de tous les produits d'une page
+# collect all book's link for a single page
 def get_page_products_links(url, products_links):
     soup = get_page_soup(url)
     heads = soup.find_all("h3")
@@ -89,7 +93,7 @@ def get_page_products_links(url, products_links):
         products_links.append(link.replace("../../..", "https://books.toscrape.com/catalogue"))
 
 
-# collecter tous produit d'une catégorie
+# collect all products (books) infos for a single category
 def get_all_products_category_links(category_url):
     products_links = []
     page_number = 2
@@ -112,6 +116,7 @@ def get_all_products_category_links(category_url):
     return products_links
 
 
+# writing products infos in a csv file
 def write_csv_file(products_links, path):
     csvfile = open(path, "w", encoding="utf-8")
     c = csv.writer(csvfile)
@@ -138,7 +143,7 @@ def write_csv_file(products_links, path):
     csvfile.close()
 
 
-# Télécharger tous produits
+# Downloading all products (or main function)
 def extract_all_books_by_category():
     categories_links = get_all_categories_links()
     for category_link in tqdm(categories_links, unit="catégorie"):
