@@ -1,51 +1,61 @@
 # Readme
 
-Ce script est utilisé pour extraire des informations sur les livres du site suivant en utilisant Python.
+This script is used to extract information about books from the following website using Python:
 http://books.toscrape.com/
 
 ### Installation
 
-1. Assurez vous d'installer l'environnement virtuel:\
-   '''python -m venv env'''
-2. Pour l'activer sur Windows:\
-   '''source env\Scripts\activate.bat'''
-3. Pour l'activer sur Mac:\
-   '''source env/bin/activate'''
-4. Installez les dependances utilisant le fichier requirements.txt:\
-   '''pip install -r requirements.txt'''
-5. Finalement, exécutez le script en tapant dans le terminat:\
-   '''Python main.py'''
+1. Make sure to install the virtual environment by running:\
+   '''Python
+   python -m venv env
+   '''
+2. To activate it on Windows:\
+   '''Python
+   source env\Scripts\activate.bat
+   '''
+3. To activate it on Mac:\
+   '''Python
+   source env/bin/activate
+   '''
+4. Install the dependencies using the requirements.txt file:\
+   '''Python
+   pip install -r requirements.txt
+   '''
+5. Finally, run the script by typing in the terminal:\
+   '''Python
+   Python main.py
+   '''
 
 ### Explication
 
 **save_products_img(category, title, url)**\
-Cette fonction télécharge l'image associée à un livre en utilisant son URL et la sauvegarde dans un dossier spécifique correspondant à la catégorie du livre.
+This function downloads the image associated with a book using its URL and saves it in a specific folder corresponding to the book's category.
 
 **get_product_infos(url)**\
-Cette fonction récupère les informations d'un livre à partir de son URL. Elle retourne une liste contenant les informations suivantes :
+This function retrieves the information about a book from its URL. It returns a list containing the following information:
 
-- URL de la page produit
-- Code produit universel
-- Titre du livre
-- Prix TTC
-- Prix HT
-- Disponibilité
-- Description du livre
-- Catégorie
-- Évaluation du livre
-- URL de l'image associée
+- Product page URL
+- Universal product code
+- Book title
+- Price (including tax)
+- Price (excluding tax)
+- Availability
+- Book description
+- Category
+- Book rating
+- URL of the associated image
 
 **get_all_categories_links()**\
-Cette fonction récupère les liens de toutes les catégories de livres disponibles sur le site.
+This function retrieves the links of all book categories available on the site.
 
 **get_page_products_links(url, products_links)**\
-Cette fonction récupère les liens de tous les livres sur une page et les stocke dans la liste "products_links".
+This function retrieves the links of all books on a page and stores them in the "products_links" list.
 
 **get_all_products_category_links(category_url)**\
-Cette fonction récupère tous les liens de livres pour une catégorie donnée en parcourant les différentes pages de la catégorie.
+This function retrieves all book links for a given category by browsing through the different pages of the category.
 
 **write_csv_file(products_links, path)**\
-Cette fonction prend en entrée la liste des liens de livres et le chemin où le fichier CSV contenant les informations des livres sera créé. Elle récupère les informations de chaque livre en utilisant la fonction "get_product_infos" et les stocke dans le fichier CSV. Elle télécharge également l'image de chaque livre en utilisant la fonction "save_products_img".
+This function takes as input the list of book links and the path where the CSV file containing the book information will be created. It retrieves the information for each book using the "get_product_infos" function and stores it in the CSV file. It also downloads the image of each book using the "save_products_img" function.
 
 **extract_all_books_by_category()**\
-Cette fonction utilise toutes les fonctions ci-dessus pour extraire les informations sur tous les livres de toutes les catégories et les stocker dans des fichiers CSV séparés.
+This function uses all the functions above to extract information about all books in all categories and store them in separate CSV files.
