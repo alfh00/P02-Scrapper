@@ -6,23 +6,23 @@ http://books.toscrape.com/
 ### Installation
 
 1. Make sure to install the virtual environment by running:\
-   '''Python
+   '''python
    python -m venv env
    '''
 2. To activate it on Windows:\
-   '''Python
+   '''python
    source env\Scripts\activate.bat
    '''
 3. To activate it on Mac:\
-   '''Python
+   '''python
    source env/bin/activate
    '''
 4. Install the dependencies using the requirements.txt file:\
-   '''Python
+   '''python
    pip install -r requirements.txt
    '''
 5. Finally, run the script by typing in the terminal:\
-   '''Python
+   '''python
    Python main.py
    '''
 
