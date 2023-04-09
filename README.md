@@ -63,6 +63,7 @@ This function uses all the functions above to extract all books information in a
 
 ### Output :
 
+```
 .
 └── data
 ├── category_1
@@ -74,3 +75,4 @@ This function uses all the functions above to extract all books information in a
 └── category_n
 ├── category_n.csv
 └── img
+```
