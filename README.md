@@ -46,16 +46,30 @@ This function retrieves the information about a book from its URL. It returns a 
 - URL of the associated image
 
 **get_all_categories_links()**\
-This function retrieves the links of all book categories available on the site.
+This function collects the links of all book categories available on the website.
 
 **get_page_products_links(url, products_links)**\
-This function retrieves the links of all books on a page and stores them in the "products_links" list.
+This function cellects the links of all books on a page and stores them in the "products_links" list.
 
 **get_all_products_category_links(category_url)**\
-This function retrieves all book links for a given category by browsing through the different pages of the category.
+This function collects all book links for a given category by browsing through the different pages of the category.
 
 **write_csv_file(products_links, path)**\
-This function takes as input the list of book links and the path where the CSV file containing the book information will be created. It retrieves the information for each book using the "get_product_infos" function and stores it in the CSV file. It also downloads the image of each book using the "save_products_img" function.
+This function takes as input the list of book links and the path where the CSV file containing the book information will be created. It retrieves the information for each book using the "get_product_infos" function and writes it in the CSV file. It also downloads the image of each book using the "save_products_img" function.
 
 **extract_all_books_by_category()**\
-This function uses all the functions above to extract information about all books in all categories and store them in separate CSV files.
+This function uses all the functions above to extract all books information in all categories and store them in separate CSV files.
+
+### Output :
+
+.
+└── data
+├── category_1
+│ ├── category_1.csv
+│ └── img
+├── category_2
+│ ├── category_2.csv
+│ └── img
+└── category_n
+├── category_n.csv
+└── img
