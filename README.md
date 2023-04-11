@@ -14,10 +14,6 @@ http://books.toscrape.com/
    ```
    source env\Scripts\activate.bat
    ```
-   For Mac:\
-   ```
-   source env/bin/activate
-   ```
 3. Install the dependencies using the requirements.txt file:\
    ```
    pip install -r requirements.txt

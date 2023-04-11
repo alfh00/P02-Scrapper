@@ -7,7 +7,13 @@ from tqdm import tqdm
 import logging
 
 # Configs
-logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(
+    filename="logs.log",
+    encoding="utf-8",
+    level=logging.INFO,
+    format="%(asctime)s %(message)s",
+    datefmt="%m/%d/%Y %I:%M:%S %p",
+)
 
 
 def get_page_soup(url):
@@ -138,7 +144,7 @@ def write_csv_file(products_links, path):
         product = get_product_infos(product_link)
         c.writerow(product)
         [product_page_url, universal_product_code, title, *mid, category, review_rating, img_url] = product
-
+        logging.info(f"working on {product_link}")
         save_products_img(category, title, img_url)
     csvfile.close()
 
@@ -155,7 +161,8 @@ def extract_all_books_by_category():
                 os.makedirs(path)
             write_csv_file(products_links, path + f"/{name}.csv")
         except:
-            raise Exception("Impossible de créer le dossier")
+            # raise Exception(f"Cannot write file {path}")
+            logging.error(f"Cannot create file {path}")
 
 
 extract_all_books_by_category()
